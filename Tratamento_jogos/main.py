@@ -1,7 +1,9 @@
 import pandas as pd
+from IPython.display import display
+from tabulate import tabulate
 
 #lembrando que aqui onde você irá colocar o caminho do DataBase
-caminhoDataBase = 'DataBase jogos - Página1_2.csv'
+caminhoDataBase = 'DataBase jogos final.csv'
 df = pd.read_csv(caminhoDataBase)
 
 def telaInicial():
@@ -36,23 +38,21 @@ while True:
                 match viz_resp:
                     case "1":
                         print("\n============================================================\n")
-                        print("DataBase completo")
-                        print(df)
+                        print("DataBase completo\n", tabulate(df, headers=df.columns, tablefmt="grid", stralign="center"))
                         input("Precione Enter para continuar...")
                         print("\n============================================================\n")
                     case "2":
                         print("\n============================================================\n")
                         listaColunas = df.columns.tolist()
-                        print("\nTodas as colunas: ", listaColunas)
+                        print("\nTodas as colunas:\n", tabulate([], headers=listaColunas, tablefmt="pipe", stralign="center"),sep="")
                         coluna = input("\nInforme a coluna: ")
                         coluna = coluna.lower()
                         print("\n============================================================\n")
                         if coluna in listaColunas:
                             print("\n============================================================\n")
-                            print(f"Coluna '{coluna}':\n")
-                            print(df[coluna])
+                            print(f"Coluna '{coluna}':\n", df[coluna], sep="")
                         else:
-                            print("{} não é uma das colunas!")
+                            print(f"'{coluna}' não é uma das colunas!")
                         print("\n============================================================\n")
                         input("Precione Enter para continuar...")
                     case "3":
@@ -103,7 +103,8 @@ while True:
                 match add_resp:
                     case "1":
                         print("\n============================================================\n")
-                        print("\nTodas as colunas: ", df.columns.tolist(), end="\n\n")
+                        listaColunas = df.columns.tolist()
+                        print("\nTodas as colunas:\n", tabulate([], headers=listaColunas, tablefmt="pipe", stralign="center"),sep="")
                         nome = input("Nome: ")
                         dtLancamento = input("Data de Lançamento: ")
                         categoria = input("Categoria: ")
